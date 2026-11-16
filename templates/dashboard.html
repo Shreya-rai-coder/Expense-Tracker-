@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Expense Tracker</title>
+
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#a88bc9">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f0ff, #fff0f3);
+            min-height: 100vh;
+            padding: 35px;
+            color: #51435f;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        /* Header */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .logo {
+            color: #9875bd;
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            background: #f0e5fa;
+            color: #8766aa;
+            padding: 10px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #a88bc9;
+            color: white;
+        }
+
+        /* Welcome Section */
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            color: #514064;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #95889e;
+            font-size: 14px;
+        }
+
+        /* Total Expense Card */
+
+        .total-card {
+            background: linear-gradient(120deg, #b69bd8, #d8b5d9);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 25px rgba(160, 120, 190, 0.18);
+        }
+
+        .total-card p {
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .total-card h2 {
+            font-size: 35px;
+            font-weight: 600;
+        }
+
+        .total-card span {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 0.9fr 1.4fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(130, 100, 150, 0.08);
+        }
+
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 23px;
+            color: #5d477c;
+            margin-bottom: 25px;
+        }
+
+        /* Add Expense Form */
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: #746580;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e8dff0;
+            border-radius: 9px;
+            outline: none;
+            background: #fcfaff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            color: #655675;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #b69bd8;
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: #a88bc9;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #9070b5;
+            transform: translateY(-2px);
+        }
+
+        /* Expense History */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 430px;
+        }
+
+        th {
+            background: #f7f1fc;
+            color: #806b99;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 14px 10px;
+            text-align: left;
+        }
+
+        td {
+            padding: 15px 10px;
+            font-size: 12px;
+            color: #756b7e;
+            border-bottom: 1px solid #f1ebf5;
+        }
+
+        tr:hover td {
+            background: #fdfaff;
+        }
+
+        .amount {
+            color: #9875bd;
+            font-weight: 600;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 30px 10px;
+            color: #a69aad;
+            font-size: 13px;
+        }
+
+        /* Footer */
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #a69aad;
+            font-size: 11px;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 850px) {
+
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: 20px;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .welcome h1 {
+                font-size: 27px;
+            }
+
+            .header {
+                gap: 15px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+
+        <header class="header">
+
+            <div class="logo">
+                ✦ Expense Tracker
+            </div>
+
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                Logout ↗
+            </a>
+
+        </header>
+
+
+        <!-- Welcome Section -->
+
+        <section class="welcome">
+
+            <h1>Welcome Back!</h1>
+
+            <p>
+                Keep track of your spending and make every penny count.
+            </p>
+
+        </section>
+
+
+        <!-- Total Expense Card -->
+
+        <section class="total-card">
+
+            <p>Total Expenses</p>
+
+            <h2>₹ {{ "%.2f"|format(total) }}</h2>
+
+            <span>Your total spending so far</span>
+
+        </section>
+
+
+        <!-- Main Content -->
+
+        <div class="main-content">
+
+
+            <!-- Add Expense Form -->
+
+            <section class="card">
+
+                <h2>+ Add New Expense</h2>
+
+                <form action="{{ url_for('add_expense') }}" method="POST">
+
+                    <div class="input-group">
+
+                        <label>Expense Title</label>
+
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="e.g. Groceries"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Amount (₹)</label>
+
+                        <input
+                            type="number"
+                            name="amount"
+                            placeholder="Enter amount"
+                            min="0.01"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Category</label>
+
+                        <select name="category" required>
+
+                            <option value="">Select Category</option>
+                            <option value="Food">Food</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Education">Education</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Bills">Bills</option>
+                            <option value="Other">Other</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Date</label>
+
+                        <input
+                            type="date"
+                            name="date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button type="submit" class="add-btn">
+                        Add Expense +
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- Expense History -->
+
+            <section class="card">
+
+                <h2>Expense History</h2>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for expense in expenses %}
+
+                            <tr>
+
+                                <td>{{ expense.title }}</td>
+
+                                <td>{{ expense.category }}</td>
+
+                                <td>{{ expense.date }}</td>
+
+                                <td class="amount">
+                                    ₹ {{ "%.2f"|format(expense.amount) }}
+                                </td>
+
+                            </tr>
+
+                            {% else %}
+
+                            <tr>
+
+                                <td colspan="4" class="empty-message">
+                                    No expenses added yet. Start tracking today!
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <footer>
+            Made with ♡ | Expense Tracker
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

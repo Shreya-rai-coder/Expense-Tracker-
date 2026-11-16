@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Expense Tracker</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* General Styling */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #f5eaff,
+                #ffeaf0,
+                #fff4e8
+            );
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+
+        /* Main Container */
+
+        .container {
+            width: 900px;
+            max-width: 100%;
+
+            background: #ffffff;
+
+            display: flex;
+
+            border-radius: 25px;
+
+            overflow: hidden;
+
+            box-shadow: 0 15px 45px rgba(130, 100, 150, 0.15);
+        }
+
+
+        /* Left Illustration Section */
+
+        .left-section {
+            width: 50%;
+
+            background: linear-gradient(
+                160deg,
+                #e9ddff,
+                #fce3ee
+            );
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 40px;
+
+            text-align: center;
+        }
+
+        .left-section img {
+            width: 100%;
+            max-width: 330px;
+
+            margin-bottom: 25px;
+        }
+
+        .left-section h2 {
+            font-family: 'Playfair Display', serif;
+
+            font-size: 28px;
+
+            color: #5d477c;
+
+            margin-bottom: 12px;
+        }
+
+        .left-section p {
+            color: #77668a;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+        }
+
+
+        /* Right Registration Section */
+
+        .right-section {
+            width: 50%;
+
+            padding: 55px 45px;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+        .logo {
+            color: #9272b8;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 25px;
+        }
+
+        .right-section h1 {
+            font-family: 'Playfair Display', serif;
+
+            font-size: 32px;
+
+            color: #453655;
+
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #99909f;
+
+            font-size: 12px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* Form Styling */
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+
+            font-size: 13px;
+
+            color: #655675;
+
+            margin-bottom: 8px;
+
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+
+            padding: 13px 15px;
+
+            border: 1px solid #e8dff0;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 13px;
+
+            background: #fcfaff;
+
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #b69bd8;
+
+            box-shadow: 0 0 8px rgba(182, 155, 216, 0.2);
+        }
+
+
+        /* Register Button */
+
+        .register-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #a88bc9;
+
+            color: white;
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .register-btn:hover {
+            background: #9070b5;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* Flash Messages */
+
+        .message {
+            background: #fff0f1;
+
+            color: #b65c70;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* Login Link */
+
+        .login-link {
+            text-align: center;
+
+            margin-top: 25px;
+
+            font-size: 12px;
+
+            color: #8b8294;
+        }
+
+        .login-link a {
+            color: #9875bd;
+
+            font-weight: 600;
+
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Mobile Responsive Design */
+
+        @media (max-width: 700px) {
+
+            .container {
+                flex-direction: column;
+            }
+
+            .left-section,
+            .right-section {
+                width: 100%;
+            }
+
+            .left-section {
+                padding: 25px;
+            }
+
+            .left-section img {
+                max-width: 180px;
+            }
+
+            .left-section h2 {
+                font-size: 23px;
+            }
+
+            .right-section {
+                padding: 35px 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+
+        <!-- Left Illustration Section -->
+
+        <div class="left-section">
+
+            <img
+                src="{{ url_for('static', filename='images/money.png') }}"
+                alt="Wallet and Finance Illustration"
+            >
+
+            <h2>Take Control of Your Money</h2>
+
+            <p>
+                Every little expense matters.
+                Start tracking your spending,
+                manage your budget and build
+                better financial habits.
+            </p>
+
+        </div>
+
+
+        <!-- Right Registration Section -->
+
+        <div class="right-section">
+
+            <div class="logo">
+                ✦ Expense Tracker
+            </div>
+
+            <h1>Create Account</h1>
+
+            <p class="subtitle">
+                Start your journey towards smarter spending.
+            </p>
+
+
+            <!-- Flash Messages -->
+
+            {% with messages = get_flashed_messages() %}
+
+                {% for message in messages %}
+
+                    <div class="message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endwith %}
+
+
+            <!-- Registration Form -->
+
+            <form method="POST">
+
+                <div class="input-group">
+
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit" class="register-btn">
+                    Create My Account →
+                </button>
+
+            </form>
+
+
+            <div class="login-link">
+
+                Already have an account?
+
+                <a href="{{ url_for('login') }}">
+                    Login here
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

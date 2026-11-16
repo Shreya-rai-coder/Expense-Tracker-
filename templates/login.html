@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Expense Tracker</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5eaff, #ffeaf0, #fff4e8);
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .container {
+            width: 900px;
+            max-width: 100%;
+
+            background: white;
+
+            display: flex;
+
+            border-radius: 25px;
+            overflow: hidden;
+
+            box-shadow: 0 15px 45px rgba(130, 100, 150, 0.15);
+        }
+
+        /* Left Section */
+
+        .left-section {
+            width: 50%;
+
+            background: linear-gradient(160deg, #e9ddff, #fce3ee);
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 40px;
+
+            text-align: center;
+        }
+
+        .left-section img {
+            width: 100%;
+            max-width: 330px;
+            margin-bottom: 25px;
+        }
+
+        .left-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #5d477c;
+            margin-bottom: 12px;
+        }
+
+        .left-section p {
+            color: #77668a;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* Right Section */
+
+        .right-section {
+            width: 50%;
+            padding: 55px 45px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            color: #9272b8;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #453655;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #99909f;
+            font-size: 12px;
+            margin-bottom: 30px;
+        }
+
+        /* Form */
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: #655675;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 13px 15px;
+
+            border: 1px solid #e8dff0;
+            border-radius: 10px;
+
+            outline: none;
+
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+
+            background: #fcfaff;
+        }
+
+        .input-group input:focus {
+            border-color: #b69bd8;
+            box-shadow: 0 0 8px rgba(182, 155, 216, 0.2);
+        }
+
+        /* Button */
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #a88bc9;
+            color: white;
+
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #9070b5;
+            transform: translateY(-2px);
+        }
+
+        /* Flash Message */
+
+        .message {
+            background: #fff0f1;
+            color: #b65c70;
+
+            padding: 10px;
+            border-radius: 8px;
+
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        /* Register Link */
+
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+
+            font-size: 12px;
+            color: #8b8294;
+        }
+
+        .register-link a {
+            color: #9875bd;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 700px) {
+
+            .container {
+                flex-direction: column;
+            }
+
+            .left-section,
+            .right-section {
+                width: 100%;
+            }
+
+            .left-section {
+                padding: 25px;
+            }
+
+            .left-section img {
+                max-width: 180px;
+            }
+
+            .right-section {
+                padding: 35px 25px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Left Illustration -->
+
+        <div class="left-section">
+
+            <img
+                src="{{ url_for('static', filename='images/login.png') }}"
+                alt="Login Illustration"
+            >
+
+            <h2>Welcome Back!</h2>
+
+            <p>
+                Your money journey continues here.
+                Log in to track your expenses,
+                manage your budget and stay
+                in control of your finances.
+            </p>
+
+        </div>
+
+
+        <!-- Right Login Form -->
+
+        <div class="right-section">
+
+            <div class="logo">
+                ✦ Expense Tracker
+            </div>
+
+            <h1>Welcome Back</h1>
+
+            <p class="subtitle">
+                Login to access your personal expense dashboard.
+            </p>
+
+
+            <!-- Flash Messages -->
+
+            {% with messages = get_flashed_messages() %}
+
+                {% for message in messages %}
+
+                    <div class="message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endwith %}
+
+
+            <!-- Login Form -->
+
+            <form method="POST">
+
+                <div class="input-group">
+
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit" class="login-btn">
+                    Login to My Account →
+                </button>
+
+            </form>
+
+
+            <div class="register-link">
+
+                Don't have an account?
+
+                <a href="{{ url_for('register') }}">
+                    Register here
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
