@@ -14,6 +14,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
 #---- Connects model.py(db object) with app.py(flask app)------
 db.init_app(app)
+with app.app_context():
+    db.create_all()
 
 #---- Configuring Flask-Login-----------
 login_manager = LoginManager()
