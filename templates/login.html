@@ -7,6 +7,9 @@
 
     <title>Login | Expense Tracker</title>
 
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#a88bc9">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
     <style>
@@ -341,7 +344,19 @@
         </div>
 
     </div>
-
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then((reg) => {
+          console.log('Service Worker registered!', reg);
+        })
+        .catch((err) => {
+          console.log('Service Worker registration failed: ', err);
+        });
+    });
+  }
+</script>
 </body>
 
 </html>
