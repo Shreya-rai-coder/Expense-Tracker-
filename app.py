@@ -1,3 +1,4 @@
+import os
 from flask import Flask, flash, redirect, render_template, request, url_for, get_flashed_messages
 from flask_login import(LoginManager, current_user, login_required, login_user, logout_user,)
 from models import Expense, User, db
@@ -5,7 +6,11 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'shreya_expense_tracker_secret key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
+database_url = os.environ.get('DATABASE_URL', 'sqlite:///database.db')
+if database_url and database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
 #---- Connects model.py(db object) with app.py(flask app)------
 db.init_app(app)
